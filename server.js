@@ -25,7 +25,7 @@ server.on('warning', function (err) {
   console.warn('warning: ' + err.message)
 })
 
-server.listen(8000, function () {
+server.listen(80, function () {
   if (server.http) {
     console.log('HTTP tracker listening on port ' + server.http.address().port)
   }

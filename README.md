@@ -13,10 +13,10 @@ Usage
 docker run --rm -i -t henkel/bittorrent-tracker:latest
 ```
 
-By default port 8000 is exposed. In order to run a detached tracker at port 8100, just call
+By default port 80 is exposed. In order to run a detached tracker at port 8100, just call
 
 ```console
-docker run --name bittorrent-tracker -d -p 8100:8000 henkel/bittorrent-tracker:latest
+docker run --name bittorrent-tracker -d -p 8100:80 henkel/bittorrent-tracker:latest
 ```
 
 Updating
