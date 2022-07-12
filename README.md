@@ -1,23 +1,48 @@
-How to setup a free webtorrent tracker for your video distribution needs
-========================================================================
+Super Easy Webtorrent Tracker Setup for $0
+==========================================
 
 # Who is this for
 
-This document is geared toward developers that want to quickly get a video distribution system up and running as *easily* as possible.
+This document is geared toward developers and non-developers that want to quickly get a video distribution system up and running as *easily* as possible.
 
-# What is webtorrent?
+# How to Install Webtorrent Tracker on the public internet
 
-Webtorrent is the bittorrent file sharing protocol extended to use WebRTC and websockets, enabling file sharing all within the browser without the need for extensions or other native binaries.
+Cost: $0
 
-# Foot guns
+We will be using a docker app and using the Render.com hosting service, which gives a 512MB Ram free tier app service that is more than enough to run a webtorrent tracker.
 
-Webtorrent doesn't work for every consumer. Some of your users (30%) will be using an ISP that uses something called "Symmetric NAT", which prevents them from communicating with the peer swarm.
+  1. Sign up for an account at Render.com, if you don't have one already.
+  2. Go to Dashboard -> New -> Web Service -> [Connect a repository](https://dashboard.render.com/select-repo?type=web)
+    a. Enter in: `https://github.com/zackees/docker-bittorrent-tracker` 
+    b. Enter in a useful name
+    c. Choose the Free tier service at $0
+    d. Click button Advanced -> Auto-Deploy set to "No"
+    e. Create the app
+    f. Wait for it to build
+    g. Ignore the deploy failure if it happens, and continue on to the next step.
+  3. In the [dashboard](https://dashboard.render.com) copy the url for the new app you've created, let's say it's my-tracker.render.com.
+  4. click the url, if you see `d14:failure reason33:invalid action in HTTP request: /e` in the browser window then everything is working correctly.
+  5. Goto [webtorrentseeder.com](https://webtorrentseeder.com)
+    a. Change the tracker to your url, swapping out `https://` prefix for `wss://` (web socket secure)
+      b. Example: `wss://my-tracker.render.com`
+    b. Select the video file and the web browser will generate a `magnetURI` and start seeding.
+  6. Open another [webtorrentseeder.com](https://webtorrentseeder.com) browser window and paste in the magnet URI, the file should start downloading.
+    c. If the file doesn't transfer, you might be behind a symetric NAT (TODO: link to a checker), if so use a VPN and try steps 5-6 again
+
+If everything works then CONGRATS! You have a world wide, decentralized file sharing swarm that will work as long as you keep the seeding browser open in it's own tab group.
+
+Wait... I have to keep a browser window open forever? Yes. But tools are being worked on to make this easier. If you restart your computer you will have to re-seed the files again or else the swarm will vaporize after the last seeding client has left. As long as you use the same files and tracker, the magnet files that are generated will be the same as the originals, which will continue to work as expected.
 
 # Terminology
 
+## What is webtorrent?
+
+Webtorrent is the bittorrent file sharing protocol extended to use WebRTC and websockets, enabling file sharing all within the browser without the need for extensions or other native binaries.
+
+
 ## Trackers and Clients
 
-Most of us understand the concept of a server and a client, common in star topology networks which dominate teh internet. Bittorrent is decentralized so the terms "clients" and "servers" can be replaced with "clients" and "trackers".
+Most of us understand the concept of a server and a client, common in star topology networks which dominate the internet. Bittorrent is decentralized so the terms "clients" and "servers" can be replaced with "clients" and "trackers".
 
 
 ### Trackers
@@ -66,16 +91,18 @@ MagnetURI's == Torrent.InfoHash + one or more trackers
 
 Technically, MagnetURI's with ZERO trackers are valid, but have little use.
 
-Example:
+Example (native form, url-encoded):
 
 ```
 magnet:?xt=urn:btih:94993a31534e1a8466230e27be4ab1a5767eb8b5&dn=beavis_and_butthead.mp4&tr=wss%3A%2F%2Fwebtorrent-tracker.onrender.com%2F
 ```
 
-This is URL encoded form, which when url-decoded produces a more human readable format:
+Example (url-decoded)
 
 ```
-magnet:?xt=urn:btih:94993a31534e1a8466230e27be4ab1a5767eb8b5&dn=beavis_and_butthead.mp4&tr=wss://webtorrent-tracker.onrender.com/
+magnet:?xt=urn:btih:94993a31534e1a8466230e27be4ab1a5767eb8b5
+  &dn=beavis_and_butthead.mp4
+  &tr=wss://webtorrent-tracker.onrender.com/
 ```
 
 First there is the required torrent infohash, followed by an optional torrent name "beavis_and_butthead.mp4", followed by a public tracker `wss://webtorrent-tracker.onrender.com/` which is specified to be able to resolve the torrent hash to a full torrent file + swarm of peers.
@@ -102,19 +129,3 @@ TURN servers are unnecessary for legal content, because if the Symettric NAT cli
 ## ICE Candidate
 
 When a client wants to join the swarm, it will convert to an ICE candidate after it has it's connection information provided by a STUN server.
-
-
-# Getting up and running
-
-## Easy mode - use public trackers
-
-This is super easy because you don't have to deploy any tracker software to the internet. You can just start swarming by visiting a few websites:
-  1. Goto [webtorrentseeder.com](https://webtorrentseeder.com)
-  2. Leave the tracker field at the defaults
-  3. And then upload a file. You'll start seeding immediatly
-    a. Unless you are behind a Symetric NAT, in which case try again through a VPN.
-  4. Copy the magnet link
-  5. Open another [webtorrentseeder.com](https://webtorrentseeder.com) browser window and paste in the magnet URI, the file should start downloading.
-    a. Important! Make sure each browser window is running by itself. If it's part of a collection of tabs then many browsers will suspend the websocket network connection. if you notice that the connection is extremely slow, then try tearing out the tab into it's own group and it's likely the connection will return to full throttle.
-
-Public trackers have been pretty stable so for small time content thats not critical (daily videos, etc) it's probably fine that you use a public tracker to manage your peer swarm.
