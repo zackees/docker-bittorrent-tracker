@@ -73,12 +73,12 @@ Psuedo code example:
 
 ```js
 function respond(infohash) {
-	const torrent = hashtable.get(infohash)
-	if (torrent === undefined) {
-      return Response(404, `Torrent for ${infoHash}'"')
-	} else {
-	  return Response(200, torrent)
-	}
+  const torrent = hashtable.get(infohash)
+  if (torrent === undefined) {
+    return Response(404, `Torrent for ${infoHash}'"')
+  } else {
+    return Response(200, torrent)
+  }
 }
 ```
 
