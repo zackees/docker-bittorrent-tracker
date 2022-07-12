@@ -13,21 +13,21 @@ We will be using a docker app and using the Render.com hosting service, which gi
 
   1. Sign up for an account at Render.com, if you don't have one already.
   2. Go to Dashboard -> New -> Web Service -> [Connect a repository](https://dashboard.render.com/select-repo?type=web)
-    a. Enter in: `https://github.com/zackees/docker-bittorrent-tracker` 
-    b. Enter in a useful name
-    c. Choose the Free tier service at $0
-    d. Click button Advanced -> Auto-Deploy set to "No"
-    e. Create the app
-    f. Wait for it to build
-    g. Ignore the deploy failure if it happens, and continue on to the next step.
+    * Enter in: `https://github.com/zackees/docker-bittorrent-tracker` 
+    * Enter in a useful name
+    * Choose the Free tier service at $0
+    * Click button Advanced -> Auto-Deploy set to "No"
+    * Create the app
+    * Wait for it to build
+    * Ignore the deploy failure if it happens, and continue on to the next step.
   3. In the [dashboard](https://dashboard.render.com) copy the url for the new app you've created, let's say it's my-tracker.render.com.
   4. click the url, if you see `d14:failure reason33:invalid action in HTTP request: /e` in the browser window then everything is working correctly.
   5. Goto [webtorrentseeder.com](https://webtorrentseeder.com)
-    a. Change the tracker to your url, swapping out `https://` prefix for `wss://` (web socket secure)
-      b. Example: `wss://my-tracker.render.com`
-    b. Select the video file and the web browser will generate a `magnetURI` and start seeding.
+    * Change the tracker to your url, swapping out `https://` prefix for `wss://` (web socket secure)
+      * Example: `wss://my-tracker.render.com`
+    * Select the video file and the web browser will generate a `magnetURI` and start seeding.
   6. Open another [webtorrentseeder.com](https://webtorrentseeder.com) browser window and paste in the magnet URI, the file should start downloading.
-    c. If the file doesn't transfer, you might be behind a symetric NAT (TODO: link to a checker), if so use a VPN and try steps 5-6 again
+    * If the file doesn't transfer, you might be behind a symetric NAT (TODO: link to a checker), if so use a VPN and try steps 5-6 again
 
 If everything works then CONGRATS! You have a world wide, decentralized file sharing swarm that will work as long as you keep the seeding browser open in it's own tab group.
 
