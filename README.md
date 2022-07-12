@@ -34,6 +34,8 @@ If everything works then CONGRATS! You have a world wide, decentralized file sha
 
 Wait... I have to keep a browser window open forever? Yes. But tools are being worked on to make this easier. If you restart your computer you will have to re-seed the files again or else the swarm will vaporize after the last seeding client has left. As long as you use the same files and tracker, the magnet files that are generated will be the same as the originals, which will continue to work as expected.
 
+Okay that's it! You can keep on reading for an explaination on how webtorrent works.
+
 # Terminology
 
 ## What is webtorrent?
