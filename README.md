@@ -17,6 +17,7 @@ We will be using a docker app and using the Render.com hosting service, which gi
       * Enter in a useful name
       * Choose the Free tier service at $0
       * Click button Advanced -> Auto-Deploy set to "No"
+          * Otherwise your tracker will reboot whenever I make a change to this repo.
       * Create the app
       * Wait for it to build
       * Ignore the deploy failure if it happens, and continue on to the next step.
