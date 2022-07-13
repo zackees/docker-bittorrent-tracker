@@ -3,7 +3,7 @@ Super Easy Webtorrent Tracker Setup for $0
 
 # Who is this for
 
-This document is geared toward developers and non-developers that want to quickly get a video distribution system up and running as *easily* as possible.
+This document is geared toward developers and non-developers that want to quickly get a video distribution system up and running as *easily* as possible. The key component you'll need in serving large scale video distribution is the webtorrent *tracker*. Before, deploying a webtorrent tracker was extremely hard, this document shows how to point and click your way to your own tracker.
 
 # How to Install Webtorrent Tracker on the public internet
 
